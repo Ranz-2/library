@@ -1,0 +1,41 @@
+﻿@model Member
+@{
+    ViewData["Title"] = "Edit a member";
+}
+
+<div class="lib-page">
+
+    <form asp-action="Edit" method="post" class="lib-form">
+        <h1>Edit a member</h1>
+
+        <input type="hidden" asp-for="MemberId" />
+
+        <div class="lib-field">
+            <label asp-for="FullName"></label>
+            <input asp-for="FullName" />
+            <span asp-validation-for="FullName" class="lib-error"></span>
+        </div>
+
+        <div class="lib-field">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" />
+            <span asp-validation-for="Email" class="lib-error"></span>
+        </div>
+
+        <div class="lib-field">
+            <label asp-for="MemberType"></label>
+            <select asp-for="MemberType">
+                <option>Regular</option>
+                <option>Student</option>
+                <option>Faculty</option>
+            </select>
+            <span asp-validation-for="MemberType" class="lib-error"></span>
+        </div>
+
+        <div class="lib-actions">
+            <button type="submit" class="lib-btn lib-btn-primary">Save</button>
+            <a asp-action="Index" class="lib-btn lib-btn-ghost">Cancel</a>
+        </div>
+    </form>
+
+</div>

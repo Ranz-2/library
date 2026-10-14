@@ -1,0 +1,35 @@
+﻿@model List<Member>
+@{
+    ViewData["Title"] = "Members";
+}
+
+<div class="lib-page">
+
+    <div class="lib-toolbar">
+        <div>
+            <h2>Members</h2>
+            <p class="lib-count">@Model.Count members</p>
+        </div>
+        <a asp-action="Create" class="lib-btn lib-btn-primary">+ Add a member</a>
+    </div>
+
+    <div class="lib-grid">
+        @foreach (var member in Model)
+        {
+            <article class="lib-card">
+                <h3 class="lib-card-title">@member.FullName</h3>
+                <p class="lib-card-meta">
+                    <span class="lib-tag">@member.MemberType</span>
+                </p>
+                <p class="lib-card-meta">
+                    Email: <strong>@(member.Email ?? "—")</strong>
+                </p>
+                <div class="lib-card-actions">
+                    <a asp-action="Edit" asp-route-id="@member.MemberId" class="lib-btn lib-btn-ghost lib-btn-small">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@member.MemberId" class="lib-btn lib-btn-danger lib-btn-small">Delete</a>
+                </div>
+            </article>
+        }
+    </div>
+
+</div>
