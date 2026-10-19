@@ -1,0 +1,31 @@
+﻿@model Member
+@{
+    ViewData["Title"] = "Delete a member";
+}
+
+<div class="lib-page">
+
+    <div class="lib-danger-box">
+        <h1>Delete a member</h1>
+        <p>Are you sure you want to delete this member? This cannot be undone.</p>
+
+        <dl class="lib-detail-list">
+            <dt>Name</dt>
+            <dd>@Model.FullName</dd>
+
+            <dt>Email</dt>
+            <dd>@(Model.Email ?? "—")</dd>
+
+            <dt>Type</dt>
+            <dd>@Model.MemberType</dd>
+        </dl>
+
+        <form asp-action="Delete" asp-route-id="@Model.MemberId" method="post">
+            <div class="lib-actions">
+                <button type="submit" class="lib-btn lib-btn-danger">Delete</button>
+                <a asp-action="Index" class="lib-btn lib-btn-ghost">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+</div>

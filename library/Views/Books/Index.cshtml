@@ -1,0 +1,35 @@
+﻿@model List<Book>
+@{
+    ViewData["Title"] = "Books";
+}
+
+<div class="lib-page">
+
+    <div class="lib-toolbar">
+        <div>
+            <h2>Books</h2>
+            <p class="lib-count">@Model.Count books in the catalogue</p>
+        </div>
+        <a asp-action="Create" class="lib-btn lib-btn-primary">+ Add a book</a>
+    </div>
+
+    <div class="lib-grid">
+        @foreach (var book in Model)
+        {
+            <article class="lib-card">
+                <h3 class="lib-card-title">@book.Title</h3>
+                <p class="lib-card-meta">
+                    <span class="lib-tag">@(book.Category ?? "uncategorised")</span>
+                </p>
+                <p class="lib-card-meta">
+                    Price: <strong>@(book.Price?.ToString("N2") ?? "—")</strong>
+                </p>
+                <div class="lib-card-actions">
+                    <a asp-action="Edit" asp-route-id="@book.BookId" class="lib-btn lib-btn-ghost lib-btn-small">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@book.BookId" class="lib-btn lib-btn-danger lib-btn-small">Delete</a>
+                </div>
+            </article>
+        }
+    </div>
+
+</div>
