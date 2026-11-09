@@ -4,19 +4,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace library.Controllers;
 
-public class MembersController : Controller
+private readonly MemberRepository _members;
+private readonly LoanRepository _loans;
+
+// ASP.NET Core hands in the repositories, because Program.cs registered them.
+public MembersController(MemberRepository members, LoanRepository loans)
 {
-    // ─── 13.9 : the field and the constructor ───────────────────────
-    private readonly MemberRepository _members;
-
-    public MembersController(MemberRepository members)
-    {
-        _members = members;
-    }
+    _members = members;
+    _loans = loans;
+}
 
 
-    // GET /Members : the list of members.
-    public async Task<IActionResult> Index()
+// GET /Members : the list of members.
+public async Task<IActionResult> Index()
     {
         var members = await _members.GetAllAsync();
         return View(members);
@@ -107,4 +107,19 @@ public class MembersController : Controller
         }
         return RedirectToAction(nameof(Index));                      
     }
+// GET /Members/Details/5 : one member and their loans.
+public async Task<IActionResult> Details(long id)
+{
+    var member = await _members.GetByIdAsync(id);                              // 1 → E
+    if (member == null)                                                        // 2 → B
+    {
+        return NotFound();                                                     // 3 → D
+    }
+    var details = new MemberDetails                                            // 4 → A
+    {
+        Member = member,
+        Loans = await _loans.GetByMemberAsync(id)
+    };
+    return View(details);                                                      // 5 → C
+}
 }   
