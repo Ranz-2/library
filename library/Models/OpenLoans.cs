@@ -1,1 +1,0 @@
-﻿public long OpenLoans { get; set; }   // filled only by the member list; never saved

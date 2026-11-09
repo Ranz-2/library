@@ -41,7 +41,7 @@ namespace library.Controllers
         }
 
         // OUTLINE 8.5 — POST /Loans/Borrow
-        [HttPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Borrow(BorrowForm form)
         {
@@ -61,9 +61,9 @@ namespace library.Controllers
             await FillDropdownsAsync();                                              // 6 → D
             return View(form);                                                       // 7 → C
         }
-    }
-    // POST /Loans/Return/5 : the Return button was pressed.
-[HttPost]
+
+        // POST /Loans/Return/5 : the Return button was pressed.
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Return(long id)
         {
@@ -71,3 +71,4 @@ namespace library.Controllers
             return RedirectToAction(nameof(Index));
         }
     }
+}
