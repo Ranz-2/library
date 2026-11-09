@@ -62,4 +62,12 @@ namespace library.Controllers
             return View(form);                                                       // 7 → C
         }
     }
-}
+    // POST /Loans/Return/5 : the Return button was pressed.
+[HttPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Return(long id)
+        {
+            await _loans.ReturnAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+    }

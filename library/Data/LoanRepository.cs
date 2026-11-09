@@ -100,4 +100,15 @@ public class LoanRepository
         await transaction.CommitAsync();                                               // 9 → F
         return true;                                                                   // 10 → H
     }
+    // RETURN: mark a loan as returned today. A loan already returned is left alone.
+    public async Task ReturnAsync(long loanId)
+    {
+        const string sql =                                                       // 1 → C
+            "UPDATE lending.loan SET returned_on = CURRENT_DATE " +
+            "WHERE loan_id = @id AND returned_on IS NULL;";
+
+        await using var command = _dataSource.CreateCommand(sql);                // 2 → A
+        command.Parameters.AddWithValue("id", loanId);                           // 3 → D
+        await command.ExecuteNonQueryAsync();                                    // 4 → B
+    }
 }
