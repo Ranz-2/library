@@ -2,7 +2,14 @@
 @{
     ViewData["Title"] = "Delete a member";
 }
+<h1>Delete member</h1>
 
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<!-- existing delete form follows -->
 <div class="lib-page">
 
     <div class="lib-danger-box">
