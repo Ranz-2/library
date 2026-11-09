@@ -9,21 +9,18 @@
 <form asp-action="Borrow" method="post" class="card card-body" style="max-width:36rem">
     <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
 
-    <div class="mb-3">
-        <label asp-for="MemberId" class="form-label">Member</label>
-        <select asp-for="MemberId" asp-items="ViewBag.Members" class="form-select">
-            <option value="">&lt;choose a member&gt;</option>
-        </select>
-        <span asp-validation-for="MemberId" class="text-danger"></span>
+   <form asp-action="Borrow" method="post" class="card card-body shadow-sm" style="max-width:42rem">
+    <div class="row g-3">
+        <div class="col-md-6">...Member select...</div>
+        <div class="col-md-6">...Book select...</div>
+        <div class="col-12">...Days allowed...</div>
     </div>
-
-    <div class="mb-3">
-        <label asp-for="BookId" class="form-label">Book</label>
-        <select asp-for="BookId" asp-items="ViewBag.Books" class="form-select">
-            <option value="">&lt;choose a book&gt;</option>
-        </select>
-        <span asp-validation-for="BookId" class="text-danger"></span>
+    <div class="d-grid gap-2 mt-3">
+        <button type="submit" class="btn btn-success">📚 Borrow</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 mb-3"></div>
     </div>
+</form>
 
     <div class="mb-3">
         <label asp-for="DaysAllowed" class="form-label">Days allowed</label>
