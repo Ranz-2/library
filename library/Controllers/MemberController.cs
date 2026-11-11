@@ -1,7 +1,7 @@
 ﻿using library.Data;
 using library.Models;
 using Microsoft.AspNetCore.Mvc;
-using Npgsql; // Required for PostgresException and PostgresErrorCodes (Task 3 & 4)
+using Npgsql;
 using System;
 using System.Threading.Tasks;
 
@@ -10,9 +10,8 @@ namespace library.Controllers
     public class MembersController : Controller
     {
         private readonly MemberRepository _members;
-        private readonly LoanRepository _loans; // Added in Task 10
+        private readonly LoanRepository _loans;
 
-        // Constructor: ASP.NET Core injects both repositories.
         public MembersController(MemberRepository members, LoanRepository loans)
         {
             _members = members;
@@ -27,22 +26,18 @@ namespace library.Controllers
         }
 
         // GET: /Members/Details/5
-        // OUTLINE 10.4: One member and their loans.
         public async Task<IActionResult> Details(long id)
         {
-            var member = await _members.GetByIdAsync(id);   // 1 → E
-            if (member == null)                             // 2 → B
-            {
-                return NotFound();                          // 3 → D
-            }
+            var member = await _members.GetByIdAsync(id);
+            if (member == null) return NotFound();
 
-            var details = new MemberDetails                 // 4 → A
+            var details = new MemberDetails
             {
                 Member = member,
                 Loans = await _loans.GetByMemberAsync(id)
             };
 
-            return View(details);                           // 5 → C
+            return View(details);
         }
 
         // GET: /Members/Create
@@ -52,27 +47,21 @@ namespace library.Controllers
         }
 
         // POST: /Members/Create
-        // OUTLINE 4.1: Catch duplicate email on insert.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Member member)
         {
-            if (!ModelState.IsValid)                        // 1 → D
-            {
-                return View(member);                        // 2 → B
-            }
-
+            if (!ModelState.IsValid) return View(member);
             try
             {
-                await _members.AddAsync(member);            // 3 → A
+                await _members.AddAsync(member);
             }
-            catch (PostgresException ex) when (ex.SqlState == PostgresErrorCodes.UniqueViolation) // 4 → F
+            catch (PostgresException ex) when (ex.SqlState == PostgresErrorCodes.UniqueViolation)
             {
-                ModelState.AddModelError("Email", "Another member already uses this email");      // 5 → C
-                return View(member);                        // 6 → B
+                ModelState.AddModelError("Email", "Another member already uses this email");
+                return View(member);
             }
-
-            return RedirectToAction(nameof(Index));         // 7 → D
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: /Members/Edit/5
@@ -86,64 +75,53 @@ namespace library.Controllers
             return View(member);
         }
 
-        // POST: /Members/Edit/5
-        // OUTLINE 4.2: Catch duplicate email on update.
+        // POST /Members/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Member member)
         {
-            if (!ModelState.IsValid)                        // 1 → B
-            {
-                return View(member);                        // 2 → F
-            }
-
+            if (!ModelState.IsValid) return View(member);
             try
             {
-                await _members.UpdateAsync(member);         // 3 → E
+                await _members.UpdateAsync(member);
             }
-            catch (PostgresException ex) when (ex.SqlState == PostgresErrorCodes.UniqueViolation) // 4 → C
+            catch (PostgresException ex) when (ex.SqlState == PostgresErrorCodes.UniqueViolation)
             {
-                ModelState.AddModelError("Email", "Another member already uses this email");      // 5 → A
-                return View(member);                        // 6 → F
+                ModelState.AddModelError("Email", "Another member already uses this email");
+                return View(member);
             }
-
-            return RedirectToAction(nameof(Index));         // 7 → D
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: /Members/Delete/5
+        // ==========================================
+        // THIS WAS MISSING! GET: /Members/Delete/5
+        // ==========================================
         public async Task<IActionResult> Delete(long id)
         {
             var member = await _members.GetByIdAsync(id);
-            if (member == null)
-            {
-                return NotFound();
-            }
+            if (member == null) return NotFound();
+
             return View(member);
         }
 
-        // POST: /Members/Delete/5
-        // OUTLINE 3.2: Catch foreign key violation (member has loans).
+        // POST /Members/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             try
             {
-                await _members.DeleteAsync(id);             // 1 → A
+                await _members.DeleteAsync(id);
             }
-            catch (PostgresException ex) when (ex.SqlState == PostgresErrorCodes.ForeignKeyViolation) // 2 → G
+            catch (PostgresException ex) when (ex.SqlState == PostgresErrorCodes.ForeignKeyViolation)
             {
-                var member = await _members.GetByIdAsync(id); // 3 → B
-                if (member == null)                           // 4 → E
-                {
-                    return NotFound();                        // 5 → C
-                }
+                var member = await _members.GetByIdAsync(id);
+                if (member == null) return NotFound();
 
-                ViewBag.Error = "This member has loans on record, so the database will not delete them"; // 6 → H
-                return View("Delete", member);                // 7 → F
+                ViewBag.Error = "This member has loans on record, so the database will not delete them.";
+                return View("Delete", member);
             }
-
-            return RedirectToAction(nameof(Index));           // 8 → D
+            return RedirectToAction(nameof(Index));
         }
     }
 }

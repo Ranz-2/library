@@ -1,38 +1,44 @@
 ﻿@model BorrowForm
-
 @{
     ViewData["Title"] = "Borrow a book";
 }
 
-<h1 class="mb-3">Borrow a book</h1>
-
-<form asp-action="Borrow" method="post" class="card card-body" style="max-width:36rem">
-    <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
-
-   <form asp-action="Borrow" method="post" class="card card-body shadow-sm" style="max-width:42rem">
-    <div class="row g-3">
-        <div class="col-md-6">...Member select...</div>
-        <div class="col-md-6">...Book select...</div>
-        <div class="col-12">...Days allowed...</div>
+<div class="d-flex justify-content-center mt-5">
+    <div class="dash-form w-100">
+        <h2 class="mb-4 text-center text-neon">Checkout Book</h2>
+        
+        <form asp-action="Borrow" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            
+            <div class="mb-3">
+                <label asp-for="MemberId" class="form-label text-secondary">Select Borrower</label>
+                <select asp-for="MemberId" asp-items="ViewBag.Members" class="form-select">
+                    <option value="">-- Choose Member --</option>
+                </select>
+                <span asp-validation-for="MemberId" class="text-danger small"></span>
+            </div>
+            
+            <div class="mb-3">
+                <label asp-for="BookId" class="form-label text-secondary">Select Book</label>
+                <select asp-for="BookId" asp-items="ViewBag.Books" class="form-select">
+                    <option value="">-- Choose Book --</option>
+                </select>
+                <span asp-validation-for="BookId" class="text-danger small"></span>
+            </div>
+            
+            <div class="mb-4">
+                <label asp-for="DaysAllowed" class="form-label text-secondary">Loan Duration (Days)</label>
+                <input asp-for="DaysAllowed" class="form-control" type="number" />
+                <span asp-validation-for="DaysAllowed" class="text-danger small"></span>
+            </div>
+            
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-info text-dark fw-bold">Confirm Checkout</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
     </div>
-    <div class="d-grid gap-2 mt-3">
-        <button type="submit" class="btn btn-success">📚 Borrow</button>
-        <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
-        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 mb-3"></div>
-    </div>
-</form>
-
-    <div class="mb-3">
-        <label asp-for="DaysAllowed" class="form-label">Days allowed</label>
-        <input asp-for="DaysAllowed" class="form-control" />
-        <span asp-validation-for="DaysAllowed" class="text-danger"></span>
-    </div>
-
-    <div>
-        <button type="submit" class="btn btn-primary">Borrow</button>
-        <a asp-action="Index" class="btn btn-link">Cancel</a>
-    </div>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

@@ -1,0 +1,60 @@
+﻿@model MemberDetails
+@{
+    ViewData["Title"] = Model.Member.FullName;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4 pb-3" style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+    <div>
+        <h1 class="mb-1 fw-bold">@Model.Member.FullName</h1>
+        <p class="text-white-50 mb-0">Member Type: <span class="badge-glass ms-2">@Model.Member.MemberType</span></p>
+    </div>
+    <a asp-action="Index" class="btn btn-glass">Back to Members</a>
+</div>
+
+<h3 class="h5 mb-3 text-white-50">Borrowing History</h3>
+
+@if (Model.Loans.Count == 0)
+{
+    <div class="alert alert-dark border-0" style="background: rgba(0,0,0,0.2); color: #fff;">
+        This member has never borrowed a book.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-glass align-middle">
+            <thead>
+                <tr>
+                    <th>Book</th>
+                    <th>Loaned</th>
+                    <th>Returned</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var loan in Model.Loans)
+                {
+                    <tr>
+                        <td class="fw-bold">@loan.BookTitle</td>
+                        <td class="text-white-50">@(loan.LoanedOn?.ToString("yyyy-MM-dd") ?? "—")</td>
+                        <td class="text-white-50">@(loan.ReturnedOn?.ToString("yyyy-MM-dd") ?? "—")</td>
+                        <td>
+                            @if (loan.Status == "Overdue")
+                            {
+                                <span class="badge bg-danger">Overdue</span>
+                            }
+                            else if (loan.Status == "Out")
+                            {
+                                <span class="badge bg-warning text-dark">Out</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">Returned</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

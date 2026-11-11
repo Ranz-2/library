@@ -3,33 +3,37 @@
     ViewData["Title"] = "Books";
 }
 
-<div class="lib-page">
-
-    <div class="lib-toolbar">
-        <div>
-            <h2>Books</h2>
-            <p class="lib-count">@Model.Count books in the catalogue</p>
-        </div>
-        <a asp-action="Create" class="lib-btn lib-btn-primary">+ Add a book</a>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="mb-0 fw-bold">Catalogue</h1>
+        <p class="text-white-50 mb-0">@Model.Count books in the library</p>
     </div>
+    <a asp-action="Create" class="btn-primary-glass">+ Add Book</a>
+</div>
 
-    <div class="lib-grid">
-        @foreach (var book in Model)
-        {
-            <article class="lib-card">
-                <h3 class="lib-card-title">@book.Title</h3>
-                <p class="lib-card-meta">
-                    <span class="lib-tag">@(book.Category ?? "uncategorised")</span>
-                </p>
-                <p class="lib-card-meta">
-                    Price: <strong>@(book.Price?.ToString("N2") ?? "—")</strong>
-                </p>
-                <div class="lib-card-actions">
-                    <a asp-action="Edit" asp-route-id="@book.BookId" class="lib-btn lib-btn-ghost lib-btn-small">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@book.BookId" class="lib-btn lib-btn-danger lib-btn-small">Delete</a>
-                </div>
-            </article>
-        }
-    </div>
-
+<div class="table-responsive">
+    <table class="table table-glass align-middle">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td class="fw-bold">@book.Title</td>
+                    <td><span class="badge-glass">@(book.Category ?? "None")</span></td>
+                    <td class="text-white-50">@(book.Price?.ToString("C") ?? "—")</td>
+                    <td class="text-end">
+                        <a asp-action="Edit" asp-route-id="@book.BookId" class="btn btn-sm btn-glass">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@book.BookId" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

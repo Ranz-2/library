@@ -3,38 +3,52 @@
     ViewData["Title"] = Model.Member.FullName;
 }
 
-<h1 class="mb-1">@Model.Member.FullName</h1>
-<p class="text-muted">@Model.Member.MemberType</p>
+<div class="dash-card mt-4 mb-5">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="mb-1 text-neon">@Model.Member.FullName</h1>
+            <p class="text-secondary mb-0">Member Type: <span class="badge bg-secondary">@Model.Member.MemberType</span></p>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-light">Back to Directory</a>
+    </div>
+</div>
 
-<h2 class="h5 mt-4">Loans</h2>
+<h3 class="mb-4">Borrowing History</h3>
 
 @if (Model.Loans.Count == 0)
 {
-    <p>This member has never borrowed a book.</p>
+    <div class="alert alert-dark border-secondary text-secondary">
+        No borrowing history found for this member.
+    </div>
 }
 else
 {
-    <table class="table table-striped align-middle">
-        <thead class="table-dark">
-            <tr>
-                <th>Book</th>
-                <th>Loaned</th>
-                <th>Returned</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var loan in Model.Loans)
-            {
-                <tr>
-                    <td>@loan.BookTitle</td>
-                    <td>@loan.LoanedOn.ToString("yyyy-MM-dd")</td>
-                    <td>@(loan.ReturnedOn?.ToString("yyyy-MM-dd") ?? "—")</td>
-                    <td>@loan.Status</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="row g-3">
+        @foreach (var loan in Model.Loans)
+        {
+            <div class="col-md-6">
+                <div class="dash-card p-3">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h5 class="text-light mb-1">@loan.BookTitle</h5>
+                        @if (loan.Status == "Overdue")
+                        {
+                            <span class="badge bg-danger">Overdue</span>
+                        }
+                        else if (loan.Status == "Out")
+                        {
+                            <span class="badge bg-warning text-dark">Out</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Returned</span>
+                        }
+                    </div>
+                    <div class="mt-2 text-secondary small">
+                        <div>Loaned: @(loan.LoanedOn?.ToString("yyyy-MM-dd") ?? "—")</div>
+                        <div>Returned: @(loan.ReturnedOn?.ToString("yyyy-MM-dd") ?? "—")</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }
-
-<a asp-action="Index" class="btn btn-link px-0">Back to members</a>

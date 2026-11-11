@@ -29,7 +29,6 @@ public class MemberRepository
     // READ: every member, with how many books each has out now.
     public async Task<List<Member>> GetAllAsync()
     {
-        // 1 → B: every member, LEFT JOINed to their OPEN loans, counted
         const string sql =
             "SELECT m.member_id, m.full_name, m.email, m.member_type, COUNT(l.loan_id) " +
             "FROM lending.member m " +
@@ -37,17 +36,16 @@ public class MemberRepository
             "GROUP BY m.member_id " +
             "ORDER BY m.full_name;";
 
-        var members = new List<Member>();                                       // 2
-        await using var command = _dataSource.CreateCommand(sql);               // 3
-        await using var reader = await command.ExecuteReaderAsync();            // 4 → A
-
-        while (await reader.ReadAsync())                                        // 5 → E
+        var members = new List<Member>();
+        await using var command = _dataSource.CreateCommand(sql);
+        await using var reader = await command.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
         {
-            var member = ReadMember(reader);                                    // 6 → D
-            member.OpenLoans = reader.GetInt64(4);                              // 7 → F
-            members.Add(member);                                                // 8
+            var member = ReadMember(reader);
+            member.OpenLoans = reader.GetInt64(4);
+            members.Add(member);
         }
-        return members;                                                         // 9 → C
+        return members;
     }
     // CREATE: insert a new member. The database chooses member_id and fills join_date.
     public async Task AddAsync(Member member)

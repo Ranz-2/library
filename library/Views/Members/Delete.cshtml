@@ -1,38 +1,34 @@
 ﻿@model Member
 @{
-    ViewData["Title"] = "Delete a member";
+    ViewData["Title"] = "Delete Member";
 }
-<h1>Delete member</h1>
+
+<div class="mb-4">
+    <h1 class="text-danger fw-bold mb-1">Delete Member</h1>
+    <p class="text-white-50">Are you sure you want to delete this member? This cannot be undone.</p>
+</div>
 
 @if (ViewBag.Error != null)
 {
-    <div class="alert alert-danger">@ViewBag.Error</div>
+    <div class="alert" style="background: rgba(220, 38, 38, 0.2); border: 1px solid rgba(220, 38, 38, 0.4); color: #fca5a5;">
+        <strong>Warning:</strong> @ViewBag.Error
+    </div>
 }
 
-<!-- existing delete form follows -->
-<div class="lib-page">
+<div class="p-4 mb-4" style="background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+    <dl class="row mb-0">
+        <dt class="col-sm-3 text-white-50">Full Name</dt>
+        <dd class="col-sm-9 fw-bold">@Model.FullName</dd>
 
-    <div class="lib-danger-box">
-        <h1>Delete a member</h1>
-        <p>Are you sure you want to delete this member? This cannot be undone.</p>
+        <dt class="col-sm-3 text-white-50">Email</dt>
+        <dd class="col-sm-9">@(Model.Email ?? "—")</dd>
 
-        <dl class="lib-detail-list">
-            <dt>Name</dt>
-            <dd>@Model.FullName</dd>
-
-            <dt>Email</dt>
-            <dd>@(Model.Email ?? "—")</dd>
-
-            <dt>Type</dt>
-            <dd>@Model.MemberType</dd>
-        </dl>
-
-        <form asp-action="Delete" asp-route-id="@Model.MemberId" method="post">
-            <div class="lib-actions">
-                <button type="submit" class="lib-btn lib-btn-danger">Delete</button>
-                <a asp-action="Index" class="lib-btn lib-btn-ghost">Cancel</a>
-            </div>
-        </form>
-    </div>
-
+        <dt class="col-sm-3 text-white-50">Type</dt>
+        <dd class="col-sm-9"><span class="badge-glass">@Model.MemberType</span></dd>
+    </dl>
 </div>
+
+<form asp-action="Delete" asp-route-id="@Model.MemberId" method="post">
+    <button type="submit" class="btn btn-danger px-4 py-2" style="border-radius: 10px;">Confirm Delete</button>
+    <a asp-action="Index" class="btn btn-glass ms-2">Cancel</a>
+</form>

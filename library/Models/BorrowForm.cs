@@ -2,7 +2,6 @@
 
 namespace library.Models;
 
-// What the Borrow form sends. It is not a table row, so it is its own small class.
 public class BorrowForm
 {
     [Required(ErrorMessage = "Choose a member.")]

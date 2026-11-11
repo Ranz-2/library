@@ -2,29 +2,24 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="lib-page">
-
-    <section class="lib-hero">
-        <h1>The University Library</h1>
-        <p>A small catalogue of books and the people who borrow them.</p>
-    </section>
-
-    <div class="lib-grid">
-        <div class="lib-card">
-            <h3 class="lib-card-title">Books</h3>
-            <p class="lib-card-meta">Browse, add, edit and remove titles from the catalogue.</p>
-            <div class="lib-card-actions">
-                <a asp-controller="Books" asp-action="Index" class="lib-btn lib-btn-primary">Open catalogue</a>
+<div class="dash-card text-center mt-5">
+    <h1 class="display-4 text-neon mb-3">University Library</h1>
+    <p class="lead text-secondary mb-4">A small catalogue of books and the people who borrow them.</p>
+    
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5 mb-3">
+            <div class="p-4 border border-secondary rounded">
+                <h3 class="text-light">Books</h3>
+                <p class="text-secondary">Browse, add, edit and remove titles from the catalogue.</p>
+                <a asp-controller="Books" asp-action="Index" class="btn btn-info text-dark fw-bold">Open Catalogue</a>
             </div>
         </div>
-
-        <div class="lib-card">
-            <h3 class="lib-card-title">Members</h3>
-            <p class="lib-card-meta">Manage the students, faculty and regular borrowers.</p>
-            <div class="lib-card-actions">
-                <a asp-controller="Members" asp-action="Index" class="lib-btn lib-btn-primary">Open members</a>
+        <div class="col-md-5 mb-3">
+            <div class="p-4 border border-secondary rounded">
+                <h3 class="text-light">Members</h3>
+                <p class="text-secondary">Manage the students, faculty and regular borrowers.</p>
+                <a asp-controller="Members" asp-action="Index" class="btn btn-info text-dark fw-bold">Open Members</a>
             </div>
         </div>
     </div>
-
 </div>

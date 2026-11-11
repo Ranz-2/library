@@ -1,386 +1,155 @@
-/* ===== Modern Blue Library Theme ===== */
-:root {
-    --blue-950: #061a3a;
-    --blue-900: #0b2a5b;
-    --blue-800: #103a7a;
-    --blue-700: #1a4fa0;
-    --blue-600: #2563eb;
-    --blue-500: #3b82f6;
-    --blue-400: #60a5fa;
-    --blue-100: #dbeafe;
-    --blue-50: #eff6ff;
-    --ink: #0f172a;
-    --ink-soft: #475569;
-    --muted: #94a3b8;
-    --bg: #f4f7fb;
-    --paper: #ffffff;
-    --line: #e2e8f0;
-    --line-2: #cbd5e1;
-    --danger: #dc2626;
-    --danger-2: #b91c1c;
-    --danger-bg: #fef2f2;
-    --danger-ln: #fecaca;
-    --radius: 12px;
-    --radius-lg: 16px;
-    --shadow-sm: 0 1px 2px rgba(15,23,42,.06);
-    --shadow-md: 0 4px 14px rgba(15,23,42,.08);
-    --shadow-lg: 0 12px 34px rgba(15,23,42,.12);
-}
-
-* {
-    box-sizing: border-box;
-}
+/* ===== Concept 3: Modern Glassmorphism ===== */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
 
 body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-    font-size: 15px;
-    line-height: 1.55;
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
+    /* Vibrant, deep gradient background */
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #4c1d95 100%);
+    background-attachment: fixed;
+    color: #f8fafc;
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
 }
 
-/* ===== Layout container ===== */
-.lib-page {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 2.5rem 1.25rem 4rem;
+/* The Frosted Glass Effect */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    padding: 2rem;
+    color: #f8fafc;
 }
 
-/* ===== Hero (Home + page headers) ===== */
-.lib-hero {
-    background: linear-gradient(135deg, var(--blue-800) 0%, var(--blue-600) 60%, var(--blue-500) 100%);
-    color: #fff;
-    padding: 3rem 2rem;
-    border-radius: var(--radius-lg);
-    margin-bottom: 2rem;
-    box-shadow: var(--shadow-lg);
-    position: relative;
-    overflow: hidden;
-}
-
-    .lib-hero::after {
-        content: "";
-        position: absolute;
-        right: -60px;
-        top: -60px;
-        width: 240px;
-        height: 240px;
-        background: rgba(255,255,255,.08);
-        border-radius: 50%;
-    }
-
-    .lib-hero h1 {
-        font-size: 2.2rem;
-        margin: 0 0 .4rem;
-        font-weight: 700;
-        letter-spacing: -.02em;
-    }
-
-    .lib-hero p {
-        margin: 0;
-        font-size: 1.05rem;
-        opacity: .9;
-        max-width: 42rem;
-    }
-
-/* ===== Toolbar (title + action button) ===== */
-.lib-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.75rem;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-    .lib-toolbar h2 {
-        margin: 0;
-        font-size: 1.65rem;
-        font-weight: 700;
-        color: var(--blue-900);
-        letter-spacing: -.02em;
-    }
-
-.lib-count {
-    color: var(--ink-soft);
-    margin: .25rem 0 0;
-    font-size: .95rem;
-}
-
-/* ===== Buttons ===== */
-.lib-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: .4rem;
-    padding: .6rem 1.15rem;
-    border-radius: 10px;
-    font: inherit;
-    font-weight: 600;
-    font-size: .92rem;
-    text-decoration: none;
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: background .15s ease, transform .1s ease, box-shadow .15s ease, border-color .15s ease;
-    white-space: nowrap;
-}
-
-    .lib-btn:hover {
-        transform: translateY(-1px);
-    }
-
-.lib-btn-primary {
-    background: var(--blue-600);
-    color: #fff;
-    box-shadow: 0 1px 2px rgba(37,99,235,.35);
-}
-
-    .lib-btn-primary:hover {
-        background: var(--blue-700);
-        box-shadow: 0 6px 16px rgba(37,99,235,.35);
-    }
-
-.lib-btn-ghost {
-    background: #fff;
-    color: var(--blue-700);
-    border-color: var(--line-2);
-}
-
-    .lib-btn-ghost:hover {
-        background: var(--blue-50);
-        border-color: var(--blue-400);
-    }
-
-.lib-btn-danger {
-    background: var(--danger);
-    color: #fff;
-}
-
-    .lib-btn-danger:hover {
-        background: var(--danger-2);
-        box-shadow: 0 6px 16px rgba(220,38,38,.3);
-    }
-
-.lib-btn-small {
-    padding: .4rem .85rem;
-    font-size: .82rem;
-    border-radius: 8px;
-}
-
-/* ===== Card grid ===== */
-.lib-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.1rem;
-}
-
-.lib-card {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 1.25rem 1.25rem 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: .55rem;
-    box-shadow: var(--shadow-sm);
-    transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease;
-}
-
-    .lib-card:hover {
-        transform: translateY(-3px);
-        box-shadow: var(--shadow-md);
-        border-color: var(--blue-100);
-    }
-
-.lib-card-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin: 0;
-    color: var(--blue-950);
-    letter-spacing: -.01em;
-    line-height: 1.3;
-}
-
-.lib-card-meta {
-    font-size: .9rem;
-    color: var(--ink-soft);
-    margin: 0;
-}
-
-    .lib-card-meta strong {
-        color: var(--ink);
-        font-weight: 600;
-    }
-
-/* Badge / tag */
-.lib-tag {
-    display: inline-block;
-    background: var(--blue-100);
-    color: var(--blue-800);
-    padding: .18rem .65rem;
-    border-radius: 999px;
-    font-size: .72rem;
-    font-weight: 600;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-}
-
-.lib-card-actions {
-    display: flex;
-    gap: .5rem;
-    margin-top: auto;
-    padding-top: .85rem;
-    border-top: 1px solid var(--line);
-}
-
-/* ===== Forms ===== */
-.lib-form {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 2rem 1.75rem;
-    max-width: 36rem;
-    box-shadow: var(--shadow-md);
-}
-
-    .lib-form h1 {
-        font-size: 1.55rem;
-        margin: 0 0 1.5rem;
-        color: var(--blue-900);
-        letter-spacing: -.02em;
-    }
-
-.lib-field {
-    margin-bottom: 1.15rem;
-}
-
-    .lib-field label {
-        display: block;
-        font-weight: 600;
-        font-size: .88rem;
-        margin-bottom: .4rem;
-        color: var(--blue-950);
-    }
-
-    .lib-field input,
-    .lib-field select {
-        width: 100%;
-        padding: .65rem .85rem;
-        border: 1px solid var(--line-2);
-        border-radius: 10px;
-        font: inherit;
-        font-size: .95rem;
-        background: #fff;
-        color: var(--ink);
-        transition: border-color .15s ease, box-shadow .15s ease;
-    }
-
-        .lib-field input:focus,
-        .lib-field select:focus {
-            outline: none;
-            border-color: var(--blue-500);
-            box-shadow: 0 0 0 3px rgba(59,130,246,.22);
-        }
-
-.lib-actions {
-    display: flex;
-    gap: .75rem;
-    margin-top: 1.6rem;
-    flex-wrap: wrap;
-}
-
-.lib-error {
-    color: var(--danger);
-    font-size: .82rem;
-    margin-top: .3rem;
-    display: block;
-    font-weight: 500;
-}
-
-/* ===== Delete confirmation ===== */
-.lib-danger-box {
-    background: var(--paper);
-    border: 1px solid var(--danger-ln);
-    border-radius: var(--radius-lg);
-    padding: 1.9rem 1.75rem;
-    max-width: 36rem;
-    box-shadow: var(--shadow-md);
-    position: relative;
-}
-
-    .lib-danger-box::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 5px;
-        border-radius: var(--radius-lg) 0 0 var(--radius-lg);
-        background: var(--danger);
-    }
-
-    .lib-danger-box h1 {
-        color: var(--danger-2);
-        margin: 0 0 .5rem;
-        font-size: 1.55rem;
-        letter-spacing: -.02em;
-    }
-
-    .lib-danger-box > p {
-        color: var(--ink-soft);
-        margin: 0 0 1.2rem;
-    }
-
-.lib-detail-list {
-    margin: 0 0 1.4rem;
-    padding: 0;
-    border-top: 1px dashed var(--line-2);
-    border-bottom: 1px dashed var(--line-2);
-    padding: 1rem 0;
-}
-
-    .lib-detail-list dt {
-        font-weight: 600;
-        color: var(--muted);
-        font-size: .74rem;
-        text-transform: uppercase;
-        letter-spacing: .08em;
-        margin-bottom: .15rem;
-    }
-
-    .lib-detail-list dd {
-        margin: 0 0 .9rem;
-        font-size: 1.05rem;
-        color: var(--ink);
-        font-weight: 500;
-    }
-
-        .lib-detail-list dd:last-child {
-            margin-bottom: 0;
-        }
-
-/* ===== Optional: header bar blue ===== */
+/* Navbar */
 .navbar {
-    background: #fff !important;
-    border-bottom: 1px solid var(--line);
-    box-shadow: var(--shadow-sm);
+    background: rgba(15, 23, 42, 0.6) !important;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .navbar-brand {
-    color: var(--blue-800) !important;
+    color: #fff !important;
     font-weight: 700;
-    letter-spacing: -.01em;
+    letter-spacing: 0.5px;
 }
 
-.navbar .nav-link {
-    color: var(--ink-soft) !important;
-    font-weight: 500;
+.nav-link {
+    color: rgba(255, 255, 255, 0.7) !important;
+    transition: color 0.3s ease;
+}
+
+    .nav-link:hover {
+        color: #fff !important;
+    }
+
+/* Tables */
+.table-glass {
+    color: #f8fafc;
+    margin-bottom: 0;
+}
+
+    .table-glass th {
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        color: #a78bfa;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+    }
+
+    .table-glass td {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        vertical-align: middle;
+    }
+
+    .table-glass tbody tr:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+/* Forms & Inputs */
+.form-control, .form-select {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+}
+
+    .form-control:focus, .form-select:focus {
+        border-color: #a78bfa !important;
+        box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.2) !important;
+    }
+
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+/* Buttons */
+.btn-glass {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 0.5rem 1.25rem;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+    .btn-glass:hover {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+.btn-primary-glass {
+    background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+    border: none;
+    color: #fff;
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 0.6rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+    .btn-primary-glass:hover {
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+        color: #fff;
+    }
+
+/* Badges */
+.badge-glass {
+    background: rgba(167, 139, 250, 0.2);
+    color: #d8b4fe;
+    border: 1px solid rgba(167, 139, 250, 0.3);
     border-radius: 8px;
-    padding: .45rem .85rem !important;
-    transition: background .15s ease, color .15s ease;
+    padding: 0.4rem 0.8rem;
 }
 
-    .navbar .nav-link:hover {
-        color: var(--blue-700) !important;
-        background: var(--blue-50);
+/* Fix white table background from Bootstrap */
+.table-glass {
+    --bs-table-bg: transparent !important;
+    --bs-table-color: #f8fafc !important;
+    --bs-table-hover-bg: rgba(255, 255, 255, 0.05) !important;
+    --bs-table-hover-color: #fff !important;
+    --bs-table-border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+    /* Ensure table text is visible */
+    .table-glass td, .table-glass th {
+        color: #f8fafc !important;
+    }
+
+/* Make the 'Delete' and 'Return' buttons match the glass theme */
+.btn-outline-danger {
+    color: #fca5a5 !important;
+    border-color: rgba(252, 165, 165, 0.4) !important;
+}
+
+    .btn-outline-danger:hover {
+        background-color: rgba(220, 38, 38, 0.2) !important;
+        color: #fff !important;
     }
